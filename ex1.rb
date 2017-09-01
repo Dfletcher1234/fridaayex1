@@ -113,23 +113,31 @@ isHosted: false
 }
 
 
-articles[:response][:results].each_with_index do |hash, x|
+  articles[:response][:results].each_with_index do |hash, x|
   articles[:response][:results][x][:views] = 0
-end
-
-
-
-def read_articles
-  @new_key = 26
-  # @new_key += 1
-  articles[:response][:results][:views].each_with_index do |hash, x|
-  articles[:response][:results][x][:views] = @new_key
-
   end
 
 
 
-end
+  def read_articles(stuff)
+
+    random_article = stuff[:response][:results].sample
+
+    random_article[:views] += 1
+  end
 
 
- p articles.read_articles
+
+
+    def display_views(stuff)
+     stuff[:response][:results].select do |hash|
+    puts   hash[:webTitle], hash[:views]
+  end
+    end
+
+
+100.times do read_articles(articles) end
+
+puts articles
+
+puts display_views(articles)
